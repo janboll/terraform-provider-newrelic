@@ -35,3 +35,26 @@ func serializeIDs(ids []int) string {
 
 	return strings.Join(idStrings, ":")
 }
+
+func sortedTerms(terms []map[string]interface{}) []map[string]interface{} {
+	returnTerms := make([]map[string]interface{}, 0)
+
+	var warningCondition, criticalCondition map[string]interface{}
+
+	for _, src := range terms {
+		if src["priority"] == "warning" {
+			warningCondition = src
+		} else if src["priority"] == "critical" {
+			criticalCondition = src
+		}
+	}
+
+	if warningCondition["priority"] == "warning" {
+		returnTerms = append(returnTerms, warningCondition)
+	}
+	if criticalCondition["priority"] == "critical" {
+		returnTerms = append(returnTerms, criticalCondition)
+	}
+
+	return returnTerms
+}

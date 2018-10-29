@@ -270,7 +270,7 @@ func readAlertConditionStruct(condition *newrelic.AlertCondition, d *schema.Reso
 		terms = append(terms, dst)
 	}
 
-	if err := d.Set("term", terms); err != nil {
+	if err := d.Set("term", sortedTerms(terms)); err != nil {
 		return fmt.Errorf("[DEBUG] Error setting alert condition terms: %#v", err)
 	}
 
